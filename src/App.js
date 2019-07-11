@@ -37,7 +37,7 @@ function App() {
   } else if (!isLoaded) {
     return <div>Loading cards..</div>;
   } else {
-    return <Cards className="cards">{cards}</Cards>;
+    return <Cards>{cards}</Cards>;
   }
 }
 

@@ -1,50 +1,64 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import Stats from './Stats';
 
 const Div = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  font-family: 'Ubuntu', sans-serif;
   transition: 0.3s;
-  width: 30%;
-  background-color: #d1b3ac;
+  background-color: #b8d1ac;
   margin-top: 20px;
-  padding: 10px;
-  min-width: 250px;
+  padding: 15px;
+  width: 275px;
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   }
   img {
     border-radius: 5px 5px 0 0;
   }
-  
 `;
-const Container = styled.div`
+
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const Aside = styled.div`
+  width: 20%;
+  img {
+    width: 25px;
+    height: 15px;
+  }
 `;
 
 const Card = ({ player }) => (
   <Div>
-    <img src={player.picture} alt="Avatar" />
-    <Container>
+    <Header>
+      <img src={player.picture} alt="Avatar" />
+      <Aside>
+        <img src={player.country.picture} alt="flag" />
+        <LastResult last={player.data.last} />
+      </Aside>
+    </Header>
+    <div>
       <h4>
         <b>
           {player.firstname} {player.lastname}
         </b>
       </h4>
       <Stats data={player.data} />
-    </Container>
+    </div>
   </Div>
 );
 
-const Stat = styled.div`
-   display: flex;
-   flex-direction: row;
-`
-const Stats = ({ data }) => (
-  <Stat>
-    <div> <strong>Rkg</strong> <span>{data.rank} </span></div>
-    <div> <strong>Pts ATP</strong> <span>{data.points}</span></div>
-    <div> <strong>Poids</strong> <span>{data.weight}</span> </div>
-    <div> <strong>Age</strong> <span>{data.age}</span></div>
-  </Stat>
+const LastResult = ({ last }) => (
+  <>
+    <h5>Wins</h5>
+    <div>{last.filter(res => res === 1).length}</div>
+    <h5>Loss</h5>
+    <div>{last.filter(res => res === 0).length}</div>
+  </>
 );
 
 export default Card;
